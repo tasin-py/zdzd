@@ -1,0 +1,644 @@
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="icon" type="image/svg+xml" href="public/favicon.svg">
+    <title>Grand Bangla City | Bangladesh’s Ultimate GTA V Roleplay</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3dffa5",
+                        "background-light": "#f5f8f7",
+                        "background-dark": "#0f0f10",
+                        "surface-dark": "#0A0A0B",
+                        "border-dark": "#161618",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @keyframes breathing-text {
+            0%, 100% { text-shadow: 0 0 5px rgba(61, 255, 165, 0.4), 0 0 10px rgba(61, 255, 165, 0.2); }
+            50% { text-shadow: 0 0 15px rgba(61, 255, 165, 0.8), 0 0 25px rgba(61, 255, 165, 0.4); }
+        }
+        @keyframes breathing-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(61, 255, 165, 0.4), 0 0 30px rgba(61, 255, 165, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(61, 255, 165, 0.9), 0 0 60px rgba(61, 255, 165, 0.5); }
+        }
+        @keyframes sweep-in {
+            0% { transform: translateX(-250%) skewX(-30deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(250%) skewX(-30deg); opacity: 0; }
+        }
+        @keyframes sweep-out {
+            0% { transform: translateX(250%) skewX(-30deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(-250%) skewX(-30deg); opacity: 0; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .reveal-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        * {
+            font-style: normal !important;
+        }
+        .text-primary, .neon-text-glow, .text-primary-glow {
+            animation: breathing-text 3s ease-in-out infinite;
+        }
+        .neon-glow-primary {
+            animation: breathing-glow 3s ease-in-out infinite;
+            border: 1px solid rgba(61, 255, 165, 0.6);
+        }
+        .interactive-element {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .interactive-element::before,
+        .interactive-element::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.8),
+                transparent
+            );
+            z-index: 20;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .interactive-element::after {
+            animation: sweep-out 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .interactive-element:hover::after {
+            animation: none;
+            opacity: 0;
+        }
+        .interactive-element:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(61, 255, 165, 0.8), 0 0 60px rgba(61, 255, 165, 0.4);
+            border-color: #3dffa5;
+        }
+        .interactive-element:hover::before {
+            animation: sweep-in 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .no-sweep::before, .no-sweep::after {
+            display: none !important;
+            animation: none !important;
+        }
+        .no-sweep:hover::before, .no-sweep:hover::after {
+            display: none !important;
+            animation: none !important;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            border-color: rgba(61, 255, 165, 0.3);
+        }
+        .icon-container.interactive-element::before,
+        .icon-container.interactive-element::after {
+            width: 150%;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-arrow {
+            background: rgba(15, 15, 16, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .career-slider-container {
+            scroll-behavior: smooth;
+        }
+        .nav-glow:hover {
+            box-shadow: 0 0 20px rgba(61, 255, 165, 0.6);
+            border-color: rgba(61, 255, 165, 0.8);
+        }
+        .btn-outline-neon {
+            @apply border-2 border-primary text-primary bg-transparent;
+            box-shadow: none !important;
+            animation: none !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-outline-neon:hover {
+            box-shadow: 0 0 25px rgba(61, 255, 165, 0.7), 0 0 10px rgba(61, 255, 165, 0.4) !important;
+            background-color: transparent !important;
+            transform: scale(1.02);
+        }
+        body {
+            cursor: url('public/Dot.cur'), default !important;
+        }
+        a, button, [role="button"], .interactive-element, .spotlight-card, .nav-link, .cursor-pointer {
+            cursor: url('public/Dot-Link.cur'), pointer !important;
+        }
+    </style>
+</head>
+
+<body class="bg-black font-display text-slate-100 antialiased overflow-x-hidden">
+
+
+    <header
+        class="fixed top-0 z-50 w-full h-20 border-b border-white/5 bg-background-dark/80 backdrop-blur-xl px-6 lg:px-20">
+        <div class="mx-auto flex h-full max-w-7xl items-center justify-between">
+            <a class="flex items-center gap-3 group transition-all duration-300" href="index.html">
+                <div
+                    class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-background-dark interactive-element icon-container neon-glow-primary no-sweep">
+                    <span class="material-symbols-outlined font-bold">sports_esports</span>
+                </div>
+                <h2 class="text-xl font-black tracking-tighter text-slate-100 uppercase text-primary-glow">GBC</h2>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center gap-2">
+                <a class="text-sm font-bold text-primary px-4 py-2 rounded-lg transition-all" href="index.html">HOME</a>
+                <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                    href="rules.html">RULES</a>
+                <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                    href="story.html">SERVER INFO</a>
+                <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                    href="store.html">STORE</a>
+                <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                    href="community.html">COMMUNITY</a>
+                <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                    href="support.html">SUPPORT</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button
+                    class="hidden sm:flex items-center justify-center rounded-lg bg-primary px-6 py-2.5 text-sm font-black uppercase text-background-dark transition-all neon-glow-primary interactive-element no-sweep">
+                    Login
+                </button>
+                <!-- Mobile Menu Toggle -->
+                <button id="mobile-menu-toggle"
+                    class="lg:hidden flex h-10 w-10 items-center justify-center rounded-lg bg-surface-dark border border-white/10 text-slate-300 transition-all hover:text-primary">
+                    <span class="material-symbols-outlined menu-icon">menu</span>
+                    <span class="material-symbols-outlined close-icon hidden">close</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu"
+            class="fixed inset-0 top-20 z-40 hidden bg-background-dark/95 backdrop-blur-2xl lg:hidden">
+            <nav class="flex flex-col p-8 gap-4">
+                <a class="text-2xl font-black text-primary p-4 rounded-2xl bg-surface-dark border border-primary/20"
+                    href="index.html">HOME</a>
+                <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all"
+                    href="rules.html">RULES</a>
+                <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all"
+                    href="story.html">SERVER INFO</a>
+                <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all"
+                    href="store.html">STORE</a>
+                <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all"
+                    href="community.html">COMMUNITY</a>
+                <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all"
+                    href="support.html">SUPPORT</a>
+                <button
+                    class="mt-8 flex h-16 items-center justify-center rounded-2xl bg-primary text-xl font-black uppercase text-background-dark neon-glow-primary">
+                    Login Now
+                </button>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="relative min-h-[100vh] w-full flex items-center px-6 lg:px-20 pt-32">
+            <div class="absolute inset-0 z-0">
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/90 to-transparent z-10">
+                </div>
+                <img alt="Cinematic dark night city view" class="h-full w-full object-cover opacity-60"
+                    src="https://wallpapers.com/images/hd/gta-5-2560x1440-nighttime-purple-sky-kjob2rsay5ix9pm2.jpg" />
+            </div>
+            <div class="relative z-20 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="flex flex-col items-start text-left reveal-hidden">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1 text-xs font-bold uppercase tracking-widest text-primary border border-primary/20">
+                        Official Server of Miraz The Gamer
+                    </span>
+                    <h1 class="text-5xl lg:text-7xl font-black leading-none tracking-tight text-white mb-6">
+                        <span class="text-white">Grand </span><span class="text-primary text-primary-glow">Bangla
+                        </span><span class="text-white">City</span>
+                    </h1>
+                    <p class="mb-10 max-w-2xl text-lg text-slate-300 leading-relaxed">
+                        Join the most immersive premium FiveM community. Experience realistic roleplay like never before
+                        with custom scripts, dedicated staff, and endless possibilities.
+                    </p>
+                    <div class="flex flex-col items-start gap-12 w-full">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button
+                                class="flex h-14 items-center justify-center rounded-xl bg-primary px-10 text-lg font-black text-background-dark neon-glow-primary transition-all interactive-element">
+                                Join The City
+                            </button>
+                            <button
+                                class="flex h-14 items-center justify-center rounded-xl border-2 border-slate-700 bg-transparent px-10 text-lg font-bold text-white transition-all interactive-element">
+                                Join Discord
+                            </button>
+                        </div>
+                        <div class="flex flex-wrap gap-4 w-full">
+                            <div
+                                class="flex min-w-[160px] flex-col items-start gap-1 rounded-xl bg-surface-dark/60 backdrop-blur-md border border-border-dark/50 p-4 transition-all no-sweep">
+                                <span class="text-primary material-symbols-outlined text-xl mb-1">group</span>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Active Players
+                                </p>
+                                <p class="text-2xl font-black text-white">500+</p>
+                            </div>
+                            <div
+                                class="flex min-w-[160px] flex-col items-start gap-1 rounded-xl bg-surface-dark/60 backdrop-blur-md border border-border-dark/50 p-4 transition-all no-sweep">
+                                <span class="text-primary material-symbols-outlined text-xl mb-1">dns</span>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Server Status
+                                </p>
+                                <p class="text-2xl font-black text-primary text-primary-glow uppercase">Online</p>
+                            </div>
+                            <div
+                                class="flex min-w-[160px] flex-col items-start gap-1 rounded-xl bg-surface-dark/60 backdrop-blur-md border border-border-dark/50 p-4 transition-all no-sweep">
+                                <span class="text-primary material-symbols-outlined text-xl mb-1">chat</span>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Discord</p>
+                                <p class="text-2xl font-black text-white">15k+</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden lg:flex justify-end items-center relative group reveal-hidden"
+                    style="transition-delay: 200ms;">
+                    <div class="absolute inset-0 bg-primary/5 blur-[100px] rounded-full animate-pulse"></div>
+                    <img alt="Character Illustration"
+                        class="relative z-10 w-full max-w-[1100px] drop-shadow-[0_0_50px_rgba(61,255,165,0.3)] animate-float transition-all duration-700 group-hover:drop-shadow-[0_0_80px_rgba(61,255,165,0.5)]"
+                        src="https://cdn.tebex.io/webstore/910649/images/910649-61fe1682072bb0757944e67d1945fffa395611fd.png" />
+                </div>
+            </div>
+        </section>
+        <section class="py-24 px-6 lg:px-20 max-w-7xl mx-auto">
+            <div class="mb-16 text-center reveal-hidden">
+                <h2 class="text-3xl font-black text-white uppercase tracking-tighter">Server Highlights</h2>
+                <div class="mt-2 h-1.5 w-20 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="group flex flex-col gap-6 rounded-2xl bg-surface-dark p-8 border border-border-dark hover:border-primary transition-all no-sweep reveal-hidden"
+                    style="transition-delay: 100ms;">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined text-4xl">theater_comedy</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">Realistic Roleplay</h3>
+                        <p class="text-slate-400 leading-relaxed">Experience deep immersion with our custom-built
+                            legal and illegal systems designed for serious roleplayers.</p>
+                    </div>
+                </div>
+                <div class="group flex flex-col gap-6 rounded-2xl bg-surface-dark p-8 border border-border-dark hover:border-primary transition-all no-sweep reveal-hidden"
+                    style="transition-delay: 200ms;">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined text-4xl">diversity_3</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">Active Community</h3>
+                        <p class="text-slate-400 leading-relaxed">Join a welcoming, growing player base with 24/7
+                            active moderation and community events.</p>
+                    </div>
+                </div>
+                <div class="group flex flex-col gap-6 rounded-2xl bg-surface-dark p-8 border border-border-dark hover:border-primary transition-all no-sweep reveal-hidden"
+                    style="transition-delay: 300ms;">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined text-4xl">memory</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">Premium Gameplay</h3>
+                        <p class="text-slate-400 leading-relaxed">High-performance servers hosted on top-tier
+                            infrastructure ensuring a 0-lag experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section
+            class="py-24 px-6 lg:px-20 bg-background-dark/80 backdrop-blur-3xl relative overflow-hidden border-y border-white/5">
+            <div class="max-w-7xl mx-auto relative">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-black text-white uppercase tracking-tighter">Choose Your Career
+                        </h2>
+                        <p class="text-slate-400 mt-2">Become a hero or rule the underworld. Your choice defines the
+                            city.</p>
+                    </div>
+                    <a href="jobs.html"
+                        class="text-primary font-bold flex items-center gap-2 interactive-element px-6 py-2 rounded-lg transition-all">
+                        View all jobs <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="relative group/slider-area">
+                    <button
+                        class="absolute -left-4 md:-left-12 top-[225px] -translate-y-1/2 z-40 h-14 w-14 rounded-full glass-arrow text-white flex items-center justify-center transition-all nav-glow active:scale-95 no-sweep"
+                        onclick="document.getElementById('career-slider').scrollBy({left: -540, behavior: 'smooth'})">
+                        <span class="material-symbols-outlined text-3xl">chevron_left</span>
+                    </button>
+                    <button
+                        class="absolute -right-4 md:-right-12 top-[225px] -translate-y-1/2 z-40 h-14 w-14 rounded-full glass-arrow text-white flex items-center justify-center transition-all nav-glow active:scale-95 no-sweep"
+                        onclick="document.getElementById('career-slider').scrollBy({left: 540, behavior: 'smooth'})">
+                        <span class="material-symbols-outlined text-3xl">chevron_right</span>
+                    </button>
+                    <div class="flex overflow-x-auto gap-8 pb-12 hide-scrollbar snap-x snap-mandatory career-slider-container"
+                        id="career-slider">
+                        <div class="min-w-[85%] md:min-w-[500px] snap-start">
+                            <div
+                                class="relative overflow-hidden rounded-3xl group h-[450px] border border-border-dark transition-all no-sweep hover:border-primary/50">
+                                <img alt="Police cruiser"
+                                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1D3vX4DSGIQQJU0gP01eXnnyMo6F6p8481ZMLOWww4GWX6N-t3TxBDuImUFQKUHzQhEnR77HjcYpAVmTxxZkNTEpR8t2hI7sxSdi2vJlOTn05LsUmFaVfuL8_IAJS6NnriURIZBbe0cHVviR_w4dq78PwJJRJiR6GoZfaqnC-CN6-ODndOJqluRG5bX7Gl9vsj6XYWzMizYRUZczCGuSonm2xOKIN5h9dYR-Rr4ze0TSsh18mHmNCVtB1PKN9B882JHYT5FuTeAI" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent">
+                                </div>
+                                <div class="absolute bottom-0 p-8 w-full">
+                                    <span
+                                        class="bg-blue-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded mb-4 inline-block">Whitelisted</span>
+                                    <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tighter">
+                                        Police Department</h3>
+                                    <p class="text-slate-200 max-w-md">Serve and protect. Join the LSPD and maintain
+                                        order in the city.</p>
+                                    <button
+                                        class="mt-6 flex items-center gap-2 btn-outline-neon px-6 py-3 rounded-xl uppercase tracking-wider text-xs font-black no-sweep">
+                                        Apply Now <span
+                                            class="material-symbols-outlined transition-transform group-hover:translate-x-1">trending_flat</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="min-w-[85%] md:min-w-[500px] snap-start">
+                            <div
+                                class="relative overflow-hidden rounded-3xl group h-[450px] border border-border-dark transition-all no-sweep hover:border-primary/50">
+                                <img alt="EMS Response"
+                                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDT48E2JRtyz3RGdTX8rimiC6qjvejqepyj96rIAR5KaiLSLgqYA39pfZxoubWsl2y00UbR0OCarGNeIIsAg7GJMK6kFnqdH9Us2I-kOZnFMtQ_WYLmIqiKRFLrTGNU_NEORKG47mTs-YUYRlUpf3k8vPC6HPPv51-U3BHj1BGH258QB-tU7xMn_Oyw9eWsGy-48NFX5xIEpQ-nUpVm_9u_pZo7tYxdvyupWWeKrBOr_hO07WqQ-xI52WlxQJR55qJ77cJ55DwtRE" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent">
+                                </div>
+                                <div class="absolute bottom-0 p-8 w-full">
+                                    <span
+                                        class="bg-red-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded mb-4 inline-block">Whitelisted</span>
+                                    <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tighter">EMS
+                                        Services</h3>
+                                    <p class="text-slate-200 max-w-md">Every second counts. Save lives as a first
+                                        responder.</p>
+                                    <button
+                                        class="mt-6 flex items-center gap-2 btn-outline-neon px-6 py-3 rounded-xl uppercase tracking-wider text-xs font-black no-sweep">
+                                        Apply Now <span
+                                            class="material-symbols-outlined transition-transform group-hover:translate-x-1">trending_flat</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="min-w-[85%] md:min-w-[500px] snap-start">
+                            <div
+                                class="relative overflow-hidden rounded-3xl group h-[450px] border border-border-dark transition-all no-sweep hover:border-primary/50">
+                                <img alt="Underworld Empire"
+                                    class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Xy11ohlkVo5zWM_pYGdBGLNEui9X6xLVnuIOQcSNu3h3w2-ktCwuoz5F85LeetPjql_FYi4KtOU3sfw0I-wuq8Fdzn5WUIdPvPBrg74sq2NKM9CIYfYhF_XmJehYBcQz5FXEm2aihVuKKr87OjJw-qCfAPAKsh5OYIrKSGXOkOUESHpYQO4mS1cjYPO-wictvIZeioQLZkevXQr0qWTvHrTR9hFyv1jccyImXZmpad4jS9YFcLefdepSQ6JQpWu7JdsFfDbl7Iw" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent">
+                                </div>
+                                <div class="absolute bottom-0 p-8 w-full">
+                                    <span
+                                        class="bg-purple-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded mb-4 inline-block">Civilian</span>
+                                    <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tighter">
+                                        Underworld Empire</h3>
+                                    <p class="text-slate-200 max-w-md">Build your legacy from the shadows. Run
+                                        businesses and heists.</p>
+                                    <button
+                                        class="mt-6 flex items-center gap-2 btn-outline-neon px-6 py-3 rounded-xl uppercase tracking-wider text-xs font-black no-sweep">
+                                        Explore <span
+                                            class="material-symbols-outlined transition-transform group-hover:translate-x-1">trending_flat</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-24 px-6 lg:px-20 max-w-7xl mx-auto">
+            <div
+                class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#0A0A0B] to-black border border-white/5 p-8 md:p-16 flex flex-col md:flex-row items-center gap-12 reveal-hidden">
+                <div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -mr-48 -mt-48">
+                </div>
+                <div class="flex-1 text-center md:text-left z-10">
+                    <h2 class="text-4xl font-black text-white mb-4 uppercase tracking-tighter">Official Gaming Store
+                    </h2>
+                    <p class="text-slate-400 text-lg mb-8">Support the server and enhance your experience. Get
+                        exclusive access to Royal Passes, Custom Car Packs, and Premium Houses.</p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-8 mb-10">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 flex items-center justify-center rounded-lg bg-yellow-500/10 text-yellow-500 interactive-element icon-container">
+                                <span class="material-symbols-outlined">workspace_premium</span>
+                            </div>
+                            <span class="font-bold text-slate-200">Royal Pass</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary interactive-element icon-container">
+                                <span class="material-symbols-outlined">directions_car</span>
+                            </div>
+                            <span class="font-bold text-slate-200">Premium Cars</span>
+                        </div>
+                    </div>
+                    <a href="store.html"
+                        class="w-full md:w-auto px-12 py-4 btn-outline-neon uppercase tracking-widest transition-all rounded-xl font-black no-sweep text-center">
+                        Visit Store
+                    </a>
+                </div>
+                <div class="flex-1 grid grid-cols-2 gap-6 z-10">
+                    <div
+                        class="rounded-2xl bg-surface-dark/40 p-4 border border-white/5 text-center transition-all no-sweep hover:bg-surface-dark/60 hover:border-primary/30">
+                        <img alt="Premium sports car preview" class="w-full h-32 object-cover rounded-xl mb-4"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1T1pb6bBJeZtBRduxmVafO7rG0ABp5OkEHixMW9a_zDxzPaN6AtwZh1pB4qfHwMA_gRelLgN6-MOpvl-aoxUjj-wRFeMht40MAGEUs0bg7atO2Ecc3qdZXbr8JPZ0Rn_PBZWBUTvKzBfD3agikZ5svmvRM3x61ccDZJWrQQK1uxuidvVr3NqRXNKd7yv_k-4C8ZnBrtIELR_Mcxc6Ro0UBlyrK1uFzi7BwujSucs20OyfkiDUyG2hjH4PGDJKVlg48KWTMeX1YX8" />
+                        <p class="text-sm font-bold text-white uppercase tracking-tighter">Hyper Car Pack</p>
+                    </div>
+                    <div
+                        class="rounded-2xl bg-surface-dark/40 p-4 border border-white/5 text-center mt-8 transition-all no-sweep hover:bg-surface-dark/60 hover:border-primary/30">
+                        <img alt="Luxury penthouse preview" class="w-full h-32 object-cover rounded-xl mb-4"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4GZwG7k8qhtD9ojSJCxxuchSAnoMYI6MRnLYlTkLt3zRJR8cqJMpznSEafVjObdSU-T-QtO8r0NXbAOlXVA8RH5ezwoiOjRz8hsbMssFNZ5EoEIbsxXIQnGTu6knjX5p4eCajVoy3GPLS6hS_8dI4uwGVtnVpLdYn1icyJSQJEl-SzYF4mo_LW48g_K-0fQ0vgTUlyaKf2TV0GuwSQx4U2jE8wks6L2Ii8Uw9hYl0kv_wO9ixnnCS-aW7iIHgUCJCrrSDnAbeL04" />
+                        <p class="text-sm font-bold text-white uppercase tracking-tighter">Billionaire Mansion</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="border-t border-border-dark bg-background-dark py-16 px-6 lg:px-20 mt-12 reveal-hidden">
+        <div class="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-1">
+                <a class="flex items-center gap-3 mb-6 group" href="#">
+                    <div
+                        class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-background-dark interactive-element icon-container neon-glow-primary">
+                        <span class="material-symbols-outlined font-bold">sports_esports</span>
+                    </div>
+                    <h2 class="text-xl font-black tracking-tighter text-slate-100 uppercase">GBC</h2>
+                </a>
+                <p class="text-slate-500 text-sm leading-relaxed">
+                    The leading FiveM roleplay community in Bangladesh. Providing a professional and realistic
+                    gaming environment since 2021.
+                </p>
+                <div class="flex gap-4 mt-6">
+                    <a class="h-10 w-10 rounded-lg bg-surface-dark border border-border-dark flex items-center justify-center text-slate-400 transition-all interactive-element icon-container"
+                        href="#">
+                        <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z">
+                            </path>
+                        </svg>
+                    </a>
+                    <a class="h-10 w-10 rounded-lg bg-surface-dark border border-border-dark flex items-center justify-center text-slate-400 transition-all interactive-element icon-container"
+                        href="#">
+                        <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Quick Links</h4>
+                <ul class="space-y-4 text-sm text-slate-500">
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="index.html">HOME</a>
+                    </li>
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="rules.html">Rules</a></li>
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="story.html">Server
+                            Info</a></li>
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="store.html">Store</a></li>
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="community.html">Community</a></li>
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="support.html">Contact
+                            Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Support</h4>
+                <ul class="space-y-4 text-sm text-slate-500">
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="support.html">Help
+                            Center</a></li>
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="https://discord.gg/gbc">Discord
+                            Support</a></li>
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="support.html">Store
+                            Policy</a></li>
+                    <li><a class="transition-all hover:text-primary rounded inline-block no-sweep"
+                            href="support.html">Privacy
+                            Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Newsletter</h4>
+                <p class="text-slate-500 text-sm mb-4">Get the latest updates on city events and patches.</p>
+                <div class="flex gap-2">
+                    <input
+                        class="w-full rounded-lg bg-surface-dark border-border-dark text-slate-200 placeholder-slate-600 focus:border-primary focus:ring-primary"
+                        placeholder="Email address" type="email" />
+                    <button
+                        class="bg-primary text-background-dark px-4 rounded-lg font-bold transition-all interactive-element icon-container neon-glow-primary">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div
+            class="mx-auto max-w-7xl border-t border-border-dark mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-600 text-xs">© 2024 Grand Bangla City. Not affiliated with Rockstar Games or
+                Take-Two Interactive.</p>
+            <div class="flex items-center gap-2">
+                <span class="h-2 w-2 bg-primary rounded-full animate-pulse"></span>
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">Server v3.4.0 High-Performance
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile Menu Toggle Logic
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = mobileMenuToggle.querySelector('.menu-icon');
+        const closeIcon = mobileMenuToggle.querySelector('.close-icon');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        });
+
+        // Close menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+        });
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    // Once revealed, no need to observe anymore
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-hidden').forEach(el => {
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="icon" type="image/svg+xml" href="public/favicon.svg">
+    <title>Community Hub | Grand Bangla City</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3dffa5",
+                        "background-light": "#f5f8f7",
+                        "background-dark": "#0f0f10",
+                        "surface-dark": "#1f1f23",
+                        "border-dark": "#2e2e35",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @keyframes breathing-text {
+            0%, 100% { text-shadow: 0 0 5px rgba(61, 255, 165, 0.4), 0 0 10px rgba(61, 255, 165, 0.2); }
+            50% { text-shadow: 0 0 15px rgba(61, 255, 165, 0.8), 0 0 25px rgba(61, 255, 165, 0.4); }
+        }
+        @keyframes breathing-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(61, 255, 165, 0.4), 0 0 30px rgba(61, 255, 165, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(61, 255, 165, 0.9), 0 0 60px rgba(61, 255, 165, 0.5); }
+        }
+        @keyframes sweep-in {
+            0% { transform: translateX(-250%) skewX(-30deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(250%) skewX(-30deg); opacity: 0; }
+        }
+        @keyframes sweep-out {
+            0% { transform: translateX(250%) skewX(-30deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(-250%) skewX(-30deg); opacity: 0; }
+        }
+        * {
+            font-style: normal !important;
+        }
+        .text-primary, .neon-text-glow, .text-primary-glow {
+            animation: breathing-text 3s ease-in-out infinite;
+        }
+        .neon-glow-primary {
+            animation: breathing-glow 3s ease-in-out infinite;
+            border: 1px solid rgba(61, 255, 165, 0.6);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #3dffa5;
+        }
+        .reveal-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        body {
+            cursor: url('public/Dot.cur'), default !important;
+        }
+        a, button, [role="button"], .interactive-element, .spotlight-card, .nav-link, .cursor-pointer, .stat-card, .event-card {
+            cursor: url('public/Dot-Link.cur'), pointer !important;
+        }
+        .interactive-element {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .interactive-element::before,
+        .interactive-element::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.8),
+                transparent
+            );
+            z-index: 20;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .interactive-element::after {
+            animation: sweep-out 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .interactive-element:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(61, 255, 165, 0.8), 0 0 60px rgba(61, 255, 165, 0.4);
+            border-color: #3dffa5;
+        }
+        .interactive-element:hover::before {
+            animation: sweep-in 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .no-sweep::before, .no-sweep::after {
+            display: none !important;
+            animation: none !important;
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark font-display text-slate-100 antialiased overflow-x-hidden">
+    <!-- Reusable Header -->
+        <header
+            class="fixed top-0 z-50 w-full h-20 border-b border-white/5 bg-background-dark/80 backdrop-blur-xl px-6 lg:px-20">
+            <div class="mx-auto flex h-full max-w-7xl items-center justify-between">
+                <a class="flex items-center gap-3 group transition-all duration-300" href="index.html">
+                    <div
+                        class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-background-dark interactive-element icon-container neon-glow-primary no-sweep">
+                        <span class="material-symbols-outlined font-bold">sports_esports</span>
+                    </div>
+                    <h2 class="text-xl font-black tracking-tighter text-slate-100 uppercase text-primary-glow">GBC</h2>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center gap-2">
+                    <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                        href="index.html">HOME</a>
+                    <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                        href="rules.html">RULES</a>
+                    <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                        href="story.html">SERVER INFO</a>
+                    <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                        href="store.html">STORE</a>
+                    <a class="text-sm font-bold text-primary px-4 py-2 rounded-lg transition-all"
+                        href="community.html">COMMUNITY</a>
+                    <a class="text-sm font-bold text-slate-400 hover:text-primary px-4 py-2 rounded-lg transition-all"
+                        href="support.html">SUPPORT</a>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <button
+                        class="hidden sm:flex items-center justify-center rounded-lg bg-primary px-6 py-2.5 text-sm font-black uppercase text-background-dark transition-all neon-glow-primary interactive-element no-sweep">
+                        Login
+                    </button>
+                    <!-- Mobile Menu Toggle -->
+                    <button id="mobile-menu-toggle" class="lg:hidden flex h-10 w-10 items-center justify-center rounded-lg bg-surface-dark border border-white/10 text-slate-300 transition-all hover:text-primary">
+                        <span class="material-symbols-outlined menu-icon">menu</span>
+                        <span class="material-symbols-outlined close-icon hidden">close</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Overlay -->
+            <div id="mobile-menu" class="fixed inset-0 top-20 z-40 hidden bg-background-dark/95 backdrop-blur-2xl lg:hidden">
+                <nav class="flex flex-col p-8 gap-4">
+                    <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all" href="index.html">HOME</a>
+                    <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all" href="rules.html">RULES</a>
+                    <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all" href="story.html">SERVER INFO</a>
+                    <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all" href="store.html">STORE</a>
+                    <a class="text-2xl font-black text-primary p-4 rounded-2xl bg-white/5 border border-primary/20" href="community.html">COMMUNITY</a>
+                    <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all" href="support.html">SUPPORT</a>
+                    <button class="mt-8 flex h-16 items-center justify-center rounded-2xl bg-primary text-xl font-black uppercase text-background-dark neon-glow-primary">
+                        Login Now
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <main class="pt-32">
+            <!-- Hero Section -->
+            <section class="relative py-20 px-6 lg:px-20 overflow-hidden reveal-hidden">
+                <div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent z-0"></div>
+                <div class="max-w-7xl mx-auto relative z-10 text-center">
+                    <span class="inline-block px-4 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-black uppercase tracking-widest text-primary mb-6">
+                        Experience the brotherhood
+                    </span>
+                    <h1 class="text-5xl lg:text-7xl font-black mb-8 tracking-tighter uppercase">
+                        Community <span class="text-primary text-primary-glow">Hub</span>
+                    </h1>
+                    <p class="text-slate-400 text-lg max-w-3xl mx-auto mb-12 leading-relaxed">
+                        Join Bangladesh's most active FiveM community. With over 15,000 members, GBC is more than just a server—it's a home for serious roleplayers.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                        <div class="bg-surface-dark border border-border-dark p-6 rounded-2xl no-sweep">
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Total Members</p>
+                            <p class="text-3xl font-black text-white">15,420</p>
+                        </div>
+                        <div class="bg-surface-dark border border-border-dark p-6 rounded-2xl no-sweep">
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Active Daily</p>
+                            <p class="text-3xl font-black text-primary text-primary-glow">800+</p>
+                        </div>
+                        <div class="bg-surface-dark border border-border-dark p-6 rounded-2xl no-sweep">
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Verified Players</p>
+                            <p class="text-3xl font-black text-white">5,100</p>
+                        </div>
+                        <div class="bg-surface-dark border border-border-dark p-6 rounded-2xl no-sweep">
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Events Held</p>
+                            <p class="text-3xl font-black text-white">450+</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Events Section -->
+            <section class="py-24 px-6 lg:px-20 max-w-7xl mx-auto reveal-hidden">
+                <div class="flex items-end justify-between mb-16">
+                    <div>
+                        <h2 class="text-4xl font-black text-white uppercase tracking-tighter">Upcoming Events</h2>
+                        <div class="mt-2 h-1.5 w-20 bg-primary rounded-full"></div>
+                    </div>
+                    <a href="https://discord.gg/gbc" class="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                        Discord Calendar <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="group relative overflow-hidden rounded-3xl bg-surface-dark border border-border-dark no-sweep hover:border-primary/50 transition-all">
+                        <div class="aspect-video overflow-hidden">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Xy11ohlkVo5zWM_pYGdBGLNEui9X6xLVnuIOQcSNu3h3w2-ktCwuoz5F85LeetPjql_FYi4KtOU3sfw0I-wuq8Fdzn5WUIdPvPBrg74sq2NKM9CIYfYhF_XmJehYBcQz5FXEm2aihVuKKr87OjJw-qCfAPAKsh5OYIrKSGXOkOUESHpYQO4mS1cjYPO-wictvIZeioQLZkevXQr0qWTvHrTR9hFyv1jccyImXZmpad4jS9YFcLefdepSQ6JQpWu7JdsFfDbl7Iw" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Event">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-primary text-[10px] font-black uppercase tracking-widest bg-primary/10 px-3 py-1 rounded">This Weekend</span>
+                            <h3 class="text-2xl font-black text-white my-4 uppercase tracking-tight">Underground Race Night</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">Compete with the fastest drivers in the city for a massive prize pool. No rules, just speed.</p>
+                            <button class="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-xs font-black uppercase tracking-widest text-slate-300 hover:bg-primary hover:text-background-dark hover:border-primary transition-all interactive-element">Set Reminder</button>
+                        </div>
+                    </div>
+                    <!-- Repeat for other events -->
+                    <div class="group relative overflow-hidden rounded-3xl bg-surface-dark border border-border-dark no-sweep hover:border-primary/50 transition-all">
+                        <div class="aspect-video overflow-hidden">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1D3vX4DSGIQQJU0gP01eXnnyMo6F6p8481ZMLOWww4GWX6N-t3TxBDuImUFQKUHzQhEnR77HjcYpAVmTxxZkNTEpR8t2hI7sxSdi2vJlOTn05LsUmFaVfuL8_IAJS6NnriURIZBbe0cHVviR_w4dq78PwJJRJiR6GoZfaqnC-CN6-ODndOJqluRG5bX7Gl9vsj6XYWzMizYRUZczCGuSonm2xOKIN5h9dYR-Rr4ze0TSsh18mHmNCVtB1PKN9B882JHYT5FuTeAI" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Event">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-blue-500 text-[10px] font-black uppercase tracking-widest bg-blue-500/10 px-3 py-1 rounded">Official</span>
+                            <h3 class="text-2xl font-black text-white my-4 uppercase tracking-tight">Police Recruitment Day</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">The LSPD is opening its doors. Join the academy and start your career in law enforcement.</p>
+                            <button class="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-xs font-black uppercase tracking-widest text-slate-300 hover:bg-primary hover:text-background-dark hover:border-primary transition-all interactive-element">Apply Now</button>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-3xl bg-surface-dark border border-border-dark no-sweep hover:border-primary/50 transition-all">
+                        <div class="aspect-video overflow-hidden">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDT48E2JRtyz3RGdTX8rimiC6qjvejqepyj96rIAR5KaiLSLgqYA39pfZxoubWsl2y00UbR0OCarGNeIIsAg7GJMK6kFnqdH9Us2I-kOZnFMtQ_WYLmIqiKRFLrTGNU_NEORKG47mTs-YUYRlUpf3k8vPC6HPPv51-U3BHj1BGH258QB-tU7xMn_Oyw9eWsGy-48NFX5xIEpQ-nUpVm_9u_pZo7tYxdvyupWWeKrBOr_hO07WqQ-xI52WlxQJR55qJ77cJ55DwtRE" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Event">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-yellow-500 text-[10px] font-black uppercase tracking-widest bg-yellow-500/10 px-3 py-1 rounded">Community</span>
+                            <h3 class="text-2xl font-black text-white my-4 uppercase tracking-tight">City Mayor Elections</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">The city needs a leader. Cast your vote or run for office in the upcoming municipal elections.</p>
+                            <button class="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-xs font-black uppercase tracking-widest text-slate-300 hover:bg-primary hover:text-background-dark hover:border-primary transition-all interactive-element">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Factions Showcase -->
+            <section class="py-24 bg-surface-dark/30 reveal-hidden">
+                <div class="max-w-7xl mx-auto px-6 lg:px-20">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-black text-white uppercase tracking-tighter">Faction Spotlight</h2>
+                        <p class="text-slate-500 mt-4">Discover the major organizations shaping the city's future.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <!-- Law Enforcement -->
+                        <div class="relative group rounded-3xl overflow-hidden h-[400px] no-sweep">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1D3vX4DSGIQQJU0gP01eXnnyMo6F6p8481ZMLOWww4GWX6N-t3TxBDuImUFQKUHzQhEnR77HjcYpAVmTxxZkNTEpR8t2hI7sxSdi2vJlOTn05LsUmFaVfuL8_IAJS6NnriURIZBbe0cHVviR_w4dq78PwJJRJiR6GoZfaqnC-CN6-ODndOJqluRG5bX7Gl9vsj6XYWzMizYRUZczCGuSonm2xOKIN5h9dYR-Rr4ze0TSsh18mHmNCVtB1PKN9B882JHYT5FuTeAI" class="absolute inset-0 w-full h-full object-cover" alt="LSPD">
+                            <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent"></div>
+                            <div class="absolute bottom-0 p-10">
+                                <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tighter">LSPD & SHERIFF</h3>
+                                <p class="text-slate-200 mb-6 max-w-sm">The backbone of city safety. Professionalism, integrity, and honor.</p>
+                                <button class="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-blue-700 transition-all">Learn More</button>
+                            </div>
+                        </div>
+                        <!-- Underworld -->
+                        <div class="relative group rounded-3xl overflow-hidden h-[400px] no-sweep">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Xy11ohlkVo5zWM_pYGdBGLNEui9X6xLVnuIOQcSNu3h3w2-ktCwuoz5F85LeetPjql_FYi4KtOU3sfw0I-wuq8Fdzn5WUIdPvPBrg74sq2NKM9CIYfYhF_XmJehYBcQz5FXEm2aihVuKKr87OjJw-qCfAPAKsh5OYIrKSGXOkOUESHpYQO4mS1cjYPO-wictvIZeioQLZkevXQr0qWTvHrTR9hFyv1jccyImXZmpad4jS9YFcLefdepSQ6JQpWu7JdsFfDbl7Iw" class="absolute inset-0 w-full h-full object-cover" alt="Underworld">
+                            <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent"></div>
+                            <div class="absolute bottom-0 p-10">
+                                <h3 class="text-3xl font-black text-white mb-2 uppercase tracking-tighter">THE CARTELS</h3>
+                                <p class="text-slate-200 mb-6 max-w-sm">Control the economy, run the streets. Power is everything.</p>
+                                <button class="px-8 py-3 bg-red-600 text-white rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-red-700 transition-all">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery Grid -->
+            <section class="py-24 px-6 lg:px-20 max-w-7xl mx-auto reveal-hidden">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-black text-white uppercase tracking-tighter">Cinematic Moments</h2>
+                    <div class="mt-2 h-1.5 w-20 bg-primary mx-auto rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[200px]">
+                    <div class="col-span-2 row-span-2 rounded-3xl overflow-hidden no-sweep border border-white/5">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1D3vX4DSGIQQJU0gP01eXnnyMo6F6p8481ZMLOWww4GWX6N-t3TxBDuImUFQKUHzQhEnR77HjcYpAVmTxxZkNTEpR8t2hI7sxSdi2vJlOTn05LsUmFaVfuL8_IAJS6NnriURIZBbe0cHVviR_w4dq78PwJJRJiR6GoZfaqnC-CN6-ODndOJqluRG5bX7Gl9vsj6XYWzMizYRUZczCGuSonm2xOKIN5h9dYR-Rr4ze0TSsh18mHmNCVtB1PKN9B882JHYT5FuTeAI" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery">
+                    </div>
+                    <div class="rounded-3xl overflow-hidden no-sweep border border-white/5">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDT48E2JRtyz3RGdTX8rimiC6qjvejqepyj96rIAR5KaiLSLgqYA39pfZxoubWsl2y00UbR0OCarGNeIIsAg7GJMK6kFnqdH9Us2I-kOZnFMtQ_WYLmIqiKRFLrTGNU_NEORKG47mTs-YUYRlUpf3k8vPC6HPPv51-U3BHj1BGH258QB-tU7xMn_Oyw9eWsGy-48NFX5xIEpQ-nUpVm_9u_pZo7tYxdvyupWWeKrBOr_hO07WqQ-xI52WlxQJR55qJ77cJ55DwtRE" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery">
+                    </div>
+                    <div class="rounded-3xl overflow-hidden no-sweep border border-white/5">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4GZwG7k8qhtD9ojSJCxxuchSAnoMYI6MRnLYlTkLt3zRJR8cqJMpznSEafVjObdSU-T-QtO8r0NXbAOlXVA8RH5ezwoiOjRz8hsbMssFNZ5EoEIbsxXIQnGTu6knjX5p4eCajVoy3GPLS6hS_8dI4uwGVtnVpLdYn1icyJSQJEl-SzYF4mo_LW48g_K-0fQ0vgTUlyaKf2TV0GuwSQx4U2jE8wks6L2Ii8Uw9hYl0kv_wO9ixnnCS-aW7iIHgUCJCrrSDnAbeL04" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery">
+                    </div>
+                    <div class="col-span-2 rounded-3xl overflow-hidden no-sweep border border-white/5">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Xy11ohlkVo5zWM_pYGdBGLNEui9X6xLVnuIOQcSNu3h3w2-ktCwuoz5F85LeetPjql_FYi4KtOU3sfw0I-wuq8Fdzn5WUIdPvPBrg74sq2NKM9CIYfYhF_XmJehYBcQz5FXEm2aihVuKKr87OjJw-qCfAPAKsh5OYIrKSGXOkOUESHpYQO4mS1cjYPO-wictvIZeioQLZkevXQr0qWTvHrTR9hFyv1jccyImXZmpad4jS9YFcLefdepSQ6JQpWu7JdsFfDbl7Iw" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Gallery">
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Reusable Footer -->
+        <footer class="border-t border-border-dark bg-background-dark py-16 px-6 lg:px-20 mt-12 reveal-hidden">
+            <div class="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="md:col-span-1">
+                    <a class="flex items-center gap-3 mb-6 group" href="index.html">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-background-dark interactive-element neon-glow-primary">
+                            <span class="material-symbols-outlined font-bold">sports_esports</span>
+                        </div>
+                        <h2 class="text-xl font-black tracking-tighter uppercase">GBC</h2>
+                    </a>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        The leading FiveM roleplay community in Bangladesh. Providing a professional and realistic gaming environment since 2021.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Quick Links</h4>
+                    <ul class="space-y-4 text-sm text-slate-500">
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="index.html">HOME</a></li>
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="rules.html">Rules</a></li>
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="story.html">Server Info</a></li>
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="store.html">Store</a></li>
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="community.html">Community</a></li>
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="support.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Support</h4>
+                    <ul class="space-y-4 text-sm text-slate-500">
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="support.html">Help Center</a></li>
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="https://discord.gg/gbc">Discord Support</a></li>
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="support.html">Store Policy</a></li>
+                        <li><a class="transition-all hover:text-primary rounded inline-block no-sweep" href="support.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Newsletter</h4>
+                    <p class="text-slate-500 text-sm mb-4">Get the latest updates on city events and patches.</p>
+                    <div class="flex gap-2">
+                        <input class="w-full rounded-lg bg-surface-dark border-border-dark text-slate-200 placeholder-slate-600 focus:border-primary focus:ring-primary" placeholder="Email address" type="email" />
+                        <button class="bg-primary text-background-dark px-4 rounded-lg font-bold transition-all interactive-element neon-glow-primary">
+                            <span class="material-symbols-outlined">send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-auto max-w-7xl border-t border-border-dark mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-600 text-xs">© 2026 Grand Bangla City. Not affiliated with Rockstar Games.</p>
+                <div class="flex items-center gap-2">
+                    <span class="h-2 w-2 bg-primary rounded-full animate-pulse"></span>
+                    <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">Server v3.4.0 High-Performance</p>
+                </div>
+            </div>
+        </footer>
+    <script>
+        // Mobile Menu Toggle Logic
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = mobileMenuToggle.querySelector('.menu-icon');
+        const closeIcon = mobileMenuToggle.querySelector('.close-icon');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-hidden').forEach(el => {
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
