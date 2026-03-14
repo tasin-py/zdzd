@@ -30,6 +30,28 @@
         }
     </script>
     <style type="text/tailwindcss">
+        .loading-screen {
+            @apply fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-700;
+        }
+        .loading-logo {
+            @apply h-24 w-24 mb-8 relative flex items-center justify-center;
+        }
+        .loading-progress {
+            @apply w-48 h-1 bg-white/10 rounded-full overflow-hidden relative;
+        }
+        .loading-bar {
+            @apply absolute top-0 left-0 h-full bg-primary transition-all duration-300;
+            width: 0%;
+            box-shadow: 0 0 15px rgba(61, 255, 165, 0.5);
+        }
+        .loading-logo span {
+            @apply text-6xl text-primary;
+            animation: breathing-text 2s ease-in-out infinite, spin 4s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
         @keyframes breathing-text {
             0%, 100% { text-shadow: 0 0 5px rgba(61, 255, 165, 0.4), 0 0 10px rgba(61, 255, 165, 0.2); }
             50% { text-shadow: 0 0 15px rgba(61, 255, 165, 0.8), 0 0 25px rgba(61, 255, 165, 0.4); }
@@ -168,6 +190,16 @@
 </head>
 
 <body class="bg-black font-display text-slate-100 antialiased overflow-x-hidden">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-logo">
+            <span class="material-symbols-outlined text-6xl text-primary">sports_esports</span>
+        </div>
+        <div class="loading-progress">
+            <div id="loading-bar" class="loading-bar"></div>
+        </div>
+        <p class="mt-4 text-xs font-black uppercase tracking-widest text-primary/60">GBC Initializing</p>
+    </div>
 
 
     <header
@@ -209,10 +241,11 @@
                 </button>
             </div>
         </div>
+    </header>
+
 
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu"
-            class="fixed inset-0 top-20 z-40 hidden bg-background-dark/95 backdrop-blur-2xl lg:hidden">
+        <div id="mobile-menu" class="fixed inset-0 top-20 z-[100] hidden bg-black/80 backdrop-blur-xl lg:hidden">
             <nav class="flex flex-col p-8 gap-4">
                 <a class="text-2xl font-black text-primary p-4 rounded-2xl bg-surface-dark border border-primary/20"
                     href="index.html">HOME</a>
@@ -232,14 +265,13 @@
                 </button>
             </nav>
         </div>
-    </header>
     <main>
         <section class="relative min-h-[100vh] w-full flex items-center px-6 lg:px-20 pt-32">
             <div class="absolute inset-0 z-0">
                 <div
                     class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/90 to-transparent z-10">
                 </div>
-                <img alt="Cinematic dark night city view" class="h-full w-full object-cover opacity-60"
+                <img alt="Cinematic dark night city view" class="h-full w-full object-cover opacity-60" loading="lazy"
                     src="https://wallpapers.com/images/hd/gta-5-2560x1440-nighttime-purple-sky-kjob2rsay5ix9pm2.jpg" />
             </div>
             <div class="relative z-20 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -294,7 +326,7 @@
                 <div class="hidden lg:flex justify-end items-center relative group reveal-hidden"
                     style="transition-delay: 200ms;">
                     <div class="absolute inset-0 bg-primary/5 blur-[100px] rounded-full animate-pulse"></div>
-                    <img alt="Character Illustration"
+                    <img alt="Character Illustration" loading="lazy"
                         class="relative z-10 w-full max-w-[1100px] drop-shadow-[0_0_50px_rgba(61,255,165,0.3)] animate-float transition-all duration-700 group-hover:drop-shadow-[0_0_80px_rgba(61,255,165,0.5)]"
                         src="https://cdn.tebex.io/webstore/910649/images/910649-61fe1682072bb0757944e67d1945fffa395611fd.png" />
                 </div>
@@ -589,6 +621,32 @@
         </div>
     </footer>
     <script>
+        // Loading Screen Logic
+        window.addEventListener('load', () => {
+            const bar = document.getElementById('loading-bar');
+            const screen = document.getElementById('loading-screen');
+            let progress = 0;
+
+            const interval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress > 100) progress = 100;
+                bar.style.width = `${progress}%`;
+
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        screen.style.opacity = '0';
+                        setTimeout(() => {
+                            screen.style.display = 'none';
+                            // Trigger reveal for hero section after load
+                            const hero = document.querySelector('section .reveal-hidden');
+                            if (hero) hero.classList.add('reveal-visible');
+                        }, 700);
+                    }, 400);
+                }
+            }, 150);
+        });
+
         // Mobile Menu Toggle Logic
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');

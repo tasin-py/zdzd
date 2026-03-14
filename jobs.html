@@ -46,7 +46,30 @@
             em, i, span, h1, h2, h3, p, a, button {
                 font-style: normal !important;
             }
+        .loading-screen {
+            @apply fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-700;
         }
+        .loading-logo {
+            @apply h-24 w-24 mb-8 relative flex items-center justify-center;
+        }
+        .loading-progress {
+            @apply w-48 h-1 bg-white/10 rounded-full overflow-hidden relative;
+        }
+        .loading-bar {
+            @apply absolute top-0 left-0 h-full bg-primary transition-all duration-300;
+            width: 0%;
+            box-shadow: 0 0 15px rgba(61, 255, 165, 0.5);
+        }
+        .loading-logo span {
+            @apply flex items-center justify-center;
+            animation: breathing-text 2s ease-in-out infinite, spin 4s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+    }
         @keyframes breathing-text {
             0%, 100% { text-shadow: 0 0 5px rgba(61, 255, 165, 0.4), 0 0 10px rgba(61, 255, 165, 0.2); }
             50% { text-shadow: 0 0 15px rgba(61, 255, 165, 0.8), 0 0 25px rgba(61, 255, 165, 0.4); }
@@ -156,6 +179,15 @@
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-slate-100 min-h-screen font-display">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-logo">
+            <span class="material-symbols-outlined text-primary text-6xl font-bold">sports_esports</span>
+        </div>
+        <div class="loading-progress">
+            <div id="loading-bar" class="loading-bar"></div>
+        </div>
+    </div>
     <div class="layout-container flex flex-col min-h-screen">
         <header
             class="fixed top-0 z-50 w-full h-20 border-b border-white/5 bg-background-dark/80 backdrop-blur-xl px-6 lg:px-20">
@@ -196,9 +228,11 @@
                     </button>
                 </div>
             </div>
+    </header>
+
 
             <!-- Mobile Menu Overlay -->
-            <div id="mobile-menu" class="fixed inset-0 top-20 z-40 hidden bg-background-dark/95 backdrop-blur-2xl lg:hidden">
+            <div id="mobile-menu" class="fixed inset-0 top-20 z-[100] hidden bg-black/80 backdrop-blur-xl lg:hidden">
                 <nav class="flex flex-col p-8 gap-4">
                     <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all" href="index.html">HOME</a>
                     <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all" href="rules.html">RULES</a>
@@ -211,7 +245,6 @@
                     </button>
                 </nav>
             </div>
-        </header>
         <main class="flex-grow max-w-7xl mx-auto w-full px-6 lg:px-20 pt-32 pb-12">
             <div class="mb-16 reveal-hidden">
                 <h1 class="text-5xl lg:text-6xl font-black mb-4 tracking-tight text-white italic-none" style="">
@@ -229,7 +262,7 @@
                         <img alt="Police Role"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             src="https://static0.srcdn.com/wordpress/wp-content/uploads/2020/11/GTA-Online-Cops.png.jpg"
-                            style="">
+                            style="" loading="lazy">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2 text-white animate-neon-glow" style="">Police Officer</h3>
@@ -250,7 +283,7 @@
                         <img alt="EMS Role"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             src="https://static.wikia.nocookie.net/gtawiki/images/e/ee/Ambulance-GTAV-front-LSMC.png/revision/latest?cb=20160116221217"
-                            style="">
+                            style="" loading="lazy">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2 text-white animate-neon-glow" style="">EMS</h3>
@@ -271,7 +304,7 @@
                         <img alt="Mechanic Role"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             src="https://fivemgg.nyc3.digitaloceanspaces.com/fivem/2024/04/09062350/Mechanic-Jumpsuits-EUP-4.jpg"
-                            style="">
+                            style="" loading="lazy">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2 text-white animate-neon-glow" style="">Mechanic</h3>
@@ -291,7 +324,7 @@
                     <div class="h-48 w-full image-container">
                         <img alt="Taxi Role"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            src="https://gtacars.net/images/f8482ba54ef46318e61c84fedf386a64" style="">
+                            src="https://gtacars.net/images/f8482ba54ef46318e61c84fedf386a64" style="" loading="lazy">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2 text-white animate-neon-glow" style="">Taxi Driver</h3>
@@ -311,7 +344,7 @@
                     <div class="h-48 w-full image-container">
                         <img alt="Delivery Role"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            src="https://gta5grand.com/wiki/wp-content/uploads/2022/04/11-38.jpg" style="">
+                            src="https://gta5grand.com/wiki/wp-content/uploads/2022/04/11-38.jpg" style="" loading="lazy">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2 text-white animate-neon-glow" style="">Delivery Driver</h3>
@@ -332,7 +365,7 @@
                         <img alt="Business Role"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             src="https://variety.com/wp-content/uploads/2018/04/criminalorganizations.jpg?w=1000&amp;h=544&amp;crop=1"
-                            style="">
+                            style="" loading="lazy">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2 text-white animate-neon-glow" style="">Business Owner</h3>
@@ -353,7 +386,7 @@
                         <img alt="Gang Role"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             src="https://static.wikia.nocookie.net/gtawiki/images/d/d6/BikersUpdate-GTAO-Screenshot2.jpg/revision/latest/scale-to-width-down/368?cb=20160928131330"
-                            style="">
+                            style="" loading="lazy">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2 text-white animate-neon-glow" style="">Gang Member</h3>
@@ -374,7 +407,7 @@
                         <img alt="Journalist Role"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             src="https://img.gta5-mods.com/q75/images/media-eup-pack-livepd-press-stringer/4d187c-Thumb1.png"
-                            style="">
+                            style="" loading="lazy">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2 text-white animate-neon-glow" style="">Journalist</h3>
@@ -488,6 +521,32 @@
             });
         };
         document.addEventListener('mousemove', updateMousePos);
+
+        // Loading Screen Logic
+        window.addEventListener('load', () => {
+            const bar = document.getElementById('loading-bar');
+            const screen = document.getElementById('loading-screen');
+            let progress = 0;
+            
+            const interval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress > 100) progress = 100;
+                bar.style.width = `${progress}%`;
+                
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        screen.style.opacity = '0';
+                        setTimeout(() => {
+                            screen.style.display = 'none';
+                            // Trigger reveal
+                            const reveal = document.querySelector('.reveal-hidden');
+                            if (reveal) reveal.classList.add('reveal-visible');
+                        }, 700);
+                    }, 400);
+                }
+            }, 150);
+        });
 
         // Mobile Menu Toggle Logic
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');

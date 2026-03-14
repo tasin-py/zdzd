@@ -54,6 +54,29 @@
         * {
             font-style: normal !important;
         }
+        .loading-screen {
+            @apply fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black transition-opacity duration-700;
+        }
+        .loading-logo {
+            @apply h-24 w-24 mb-8 relative flex items-center justify-center;
+        }
+        .loading-progress {
+            @apply w-48 h-1 bg-white/10 rounded-full overflow-hidden relative;
+        }
+        .loading-bar {
+            @apply absolute top-0 left-0 h-full bg-primary transition-all duration-300;
+            width: 0%;
+            box-shadow: 0 0 15px rgba(61, 255, 165, 0.5);
+        }
+        .loading-logo span {
+            @apply flex items-center justify-center;
+            animation: breathing-text 2s ease-in-out infinite, spin 4s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .glass-label {
             background: rgba(31, 31, 35, 0.6);
             backdrop-filter: blur(8px);
@@ -173,8 +196,17 @@
     </style>
 </head>
 
-<body
-    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased selection:bg-primary selection:text-background-dark">
+<body class="bg-background-dark text-slate-100 antialiased overflow-x-hidden">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-logo">
+            <span class="material-symbols-outlined text-6xl text-primary">sports_esports</span>
+        </div>
+        <div class="loading-progress">
+            <div id="loading-bar" class="loading-bar"></div>
+        </div>
+        <p class="mt-4 text-xs font-black uppercase tracking-widest text-primary/60">GBC Initializing</p>
+    </div>
     <header
         class="fixed top-0 z-50 w-full h-20 border-b border-white/5 bg-background-dark/80 backdrop-blur-xl px-6 lg:px-20">
         <div class="mx-auto flex h-full max-w-7xl items-center justify-between">
@@ -214,9 +246,11 @@
                 </button>
             </div>
         </div>
+    </header>
+
 
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 top-20 z-40 hidden bg-background-dark/95 backdrop-blur-2xl lg:hidden">
+        <div id="mobile-menu" class="fixed inset-0 top-20 z-[100] hidden bg-black/80 backdrop-blur-xl lg:hidden">
             <nav class="flex flex-col p-8 gap-4">
                 <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all" href="index.html">HOME</a>
                 <a class="text-2xl font-black text-slate-300 p-4 hover:text-primary transition-all" href="rules.html">RULES</a>
@@ -229,7 +263,6 @@
                 </button>
             </nav>
         </div>
-    </header>
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-16 space-y-32">
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal-hidden">
             <div class="space-y-8">
@@ -265,8 +298,8 @@
                 <div class="relative aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl interactive-card"
                     style="--mouse-x: 94.17808219178082%; --mouse-y: 546.6133942161339%;">
                     <img alt="Cinematic View" class="w-full h-full object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgsIICC4xeRL88hL5bJH1OF_2zebg0oA1_LcsjZ4sScVLNApImrWuophNo7LxQpAkZ7mmQN-fKmIb2hIyL6UIq4gWJRhomEPnimidkFu_7thH0VSfjFDt66uyZ3W8wcQPrqrLGEJWX9KtShXhKR5qx_J8X1f8FBnNpNHX7Bd_WudEBc6vNOxA2l7t5hwujgm4dTEmpDH4X3NMIEjqJXHrbrYJQg7V0MsfTYGSBEDfCeiMWBGjNTbISe62a1Ya77FQGKaNUT_-MNkM"
-                        style="">
+                        src="https://images.unsplash.com/photo-1542451313056-e7c8e600cbfc?q=80&w=2000&auto=format&fit=crop"
+                        loading="lazy">
                     <div class="shine-effect"></div>
                 </div>
             </div>
@@ -324,7 +357,7 @@
                     class="w-64 h-64 lg:w-80 lg:h-80 rounded-3xl overflow-hidden shrink-0 border-4 border-primary/20 z-20">
                     <img alt="Miraz The Gamer" class="w-full h-full object-cover"
                         src="https://yt3.googleusercontent.com/Cv24fKs8vVmslFT15V6SlJEP8NMHdj_gJXU-xdI2rbw38EMtsn9JdmMNKPXgihrCWvNYtQ6vPw=s900-c-k-c0x00ffffff-no-rj"
-                        style="">
+                        style="" loading="lazy">
                 </div>
                 <div class="space-y-6 flex-1 text-center lg:text-left z-20">
                     <div class="space-y-2">
@@ -369,7 +402,7 @@
                     <img alt="Police Chase"
                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         src="https://static0.srcdn.com/wordpress/wp-content/uploads/2022/01/GTA-5-Car-Chase-Scene.jpg"
-                        style="">
+                        style="" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 glass-label px-4 py-2 rounded-lg text-sm font-bold text-primary breathing-text z-20"
                         style="">
@@ -382,7 +415,7 @@
                     <img alt="Car Meet"
                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         src="https://i.ytimg.com/vi/eWt-Ly455RI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&amp;rs=AOn4CLA818VDP-dS8z6dmEGtQxrMSoK8UQ"
-                        style="">
+                        style="" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 glass-label px-4 py-2 rounded-lg text-sm font-bold text-primary breathing-text z-20"
                         style="">
@@ -395,7 +428,7 @@
                     <img alt="Medical Roleplay"
                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         src="https://img.gta5-mods.com/q75/images/els-template-2009-gmc-topkick-ls-ambulance/a92911-Screenshot%20(465).png"
-                        style="">
+                        style="" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 glass-label px-4 py-2 rounded-lg text-sm font-bold text-primary breathing-text z-20"
                         style="">
@@ -408,7 +441,7 @@
                     <img alt="City View"
                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         src="https://static.wikia.nocookie.net/gtawiki/images/f/fe/UrbanJungle-GTAO-JobImage.jpg/revision/latest/scale-to-width/360?cb=20141017204706"
-                        style="">
+                        style="" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 glass-label px-4 py-2 rounded-lg text-sm font-bold text-primary breathing-text z-20"
                         style="">
@@ -420,7 +453,7 @@
                     style="transition-delay: 500ms;">
                     <img alt="Bank Heist RP"
                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        src="https://i.ytimg.com/vi/dWwGGJp5yTc/maxresdefault.jpg" style="">
+                        src="https://i.ytimg.com/vi/dWwGGJp5yTc/maxresdefault.jpg" style="" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 glass-label px-4 py-2 rounded-lg text-sm font-bold text-primary breathing-text z-20"
                         style="">
@@ -506,6 +539,32 @@
         </div>
     </footer>
     <script>
+        // Loading Screen Logic
+        window.addEventListener('load', () => {
+            const bar = document.getElementById('loading-bar');
+            const screen = document.getElementById('loading-screen');
+            let progress = 0;
+            
+            const interval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress > 100) progress = 100;
+                bar.style.width = `${progress}%`;
+                
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        screen.style.opacity = '0';
+                        setTimeout(() => {
+                            screen.style.display = 'none';
+                            // Trigger reveal
+                            const reveal = document.querySelector('.reveal-hidden');
+                            if (reveal) reveal.classList.add('reveal-visible');
+                        }, 700);
+                    }, 400);
+                }
+            }, 150);
+        });
+
         const updateMousePos = (e) => {
             const interactiveElements = document.querySelectorAll('.interactive-card, .premium-btn, .spotlight-card');
             interactiveElements.forEach(el => {
